@@ -1,0 +1,25 @@
+﻿@model OfficeApp.Models.VehicleOwnerViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <h3>Select Company</h3>
+    @using (Html.BeginForm("SelectCompany", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "d-flex align-items-end gap-3 flex-wrap" }))
+    {
+        <div class="d-flex align-items-center gap-2">
+            <label class="form-label mb-0" for="selectedCompanyId">Select Company:</label>
+           @*  @Html.DropDownList("selectedCompanyId", Model.DocumentTypes, "-- Select Company --", new { @class = "form-select form-select-sm w-auto", id = "selectedCompanyId" }) *@
+            @Html.DropDownList(
+            "selectedCompanyId",
+                new SelectList(Model.DocumentTypes, "Value", "Text", ViewBag.selectedCompanyId),
+                "-- Select Company --",
+                new { @class = "form-select form-select-sm w-auto", id = "selectedCompanyId" }
+                )
+        </div>
+        <div>
+            <button type="submit" class="btn btn-success btn-sm">Select</button>
+        </div>
+    }
+</div>

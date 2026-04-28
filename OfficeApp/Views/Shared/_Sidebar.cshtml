@@ -1,0 +1,61 @@
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+}
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <div class="sidebar-brand-icon">
+            <i class="bi bi-truck"></i>
+        </div>
+        <div class="sidebar-brand-text">
+            OfficeApp
+            <small>Transport Management</small>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="sidebar-nav-label">Main</div>
+
+        <a asp-controller="Home" asp-action="Index"
+           class="sidebar-nav-item @(currentController == "Home" && currentAction == "Index" ? "active" : "")">
+            <i class="bi bi-grid-1x2-fill"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <div class="sidebar-nav-label">Masters</div>
+
+        <a asp-controller="VehicleOwner" asp-action="Index"
+           class="sidebar-nav-item @(currentController == "VehicleOwner" ? "active" : "")">
+            <i class="bi bi-truck-front-fill"></i>
+            <span>Vehicles</span>
+        </a>
+
+        <a asp-controller="Party" asp-action="Index"
+           class="sidebar-nav-item @(currentController == "Party" ? "active" : "")">
+            <i class="bi bi-people-fill"></i>
+            <span>Parties</span>
+        </a>
+
+        <a asp-controller="Company" asp-action="Index"
+           class="sidebar-nav-item @(currentController == "Company" ? "active" : "")">
+            <i class="bi bi-building-fill"></i>
+            <span>Company</span>
+        </a>
+
+        <div class="sidebar-nav-label">Transactions</div>
+
+        <a asp-controller="LRForm" asp-action="Index"
+           class="sidebar-nav-item @(currentController == "LRForm" ? "active" : "")">
+            <i class="bi bi-file-earmark-text-fill"></i>
+            <span>LR Forms</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a asp-controller="Account" asp-action="Logout" class="sidebar-nav-item">
+            <i class="bi bi-box-arrow-left"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</aside>

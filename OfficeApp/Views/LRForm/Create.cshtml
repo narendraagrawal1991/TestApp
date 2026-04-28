@@ -1,0 +1,497 @@
+﻿@model OfficeApp.Models.LRFormViewModel
+@{
+	ViewBag.Title = "Create LR Form";
+}
+<h2>Create LR Form</h2>
+@using (Html.BeginForm("Create", "LRForm", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	@Html.AntiForgeryToken()
+	@Html.HiddenFor(m => m.LRForms.Id)
+
+	<div class="form-horizontal">
+		<!-- Row 1 -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.Consignor)</label>
+				@Html.TextBoxFor(m => m.LRForms.Consignor_Name, new { @class = "form-control autocomplete", placeholder = "Consignor", data_url = Url.Action("Consignor", "AutoComplete"), data_controlid = "LRForms_Consignor" })
+				@Html.ValidationMessageFor(m => m.LRForms.Consignor_Name, "", new { @class = "text-danger" })
+				@Html.HiddenFor(m => m.LRForms.Consignor)
+			</div>
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.Consignee)</label>
+				@Html.TextBoxFor(m => m.LRForms.Consignee_Name, new { @class = "form-control autocomplete", placeholder = "Consignee", data_url = Url.Action("Consignee", "AutoComplete"), data_controlid = "LRForms_Consignee" })
+				@Html.ValidationMessageFor(m => m.LRForms.Consignee_Name, "", new { @class = "text-danger" })
+				@Html.HiddenFor(m => m.LRForms.Consignee)
+			</div>
+		</div>
+
+		<!-- Row 2 -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.VehicleNo)</label>
+				@Html.TextBoxFor(m => m.LRForms.VehicleNo_Name, new { @class = "form-control autocomplete", placeholder = "Vehicle No", data_url = Url.Action("Vehicle", "AutoComplete"), data_controlid = "LRForms_VehicleNo" })
+				@Html.ValidationMessageFor(m => m.LRForms.VehicleNo_Name, "", new { @class = "text-danger" })
+				@Html.HiddenFor(m => m.LRForms.VehicleNo)
+			</div>
+			<div class="col-md-6 d-flex align-items-center gap-3">
+				<label class="form-label me-3">GST to Paid By</label>
+				<div class="form-check">
+					@Html.CheckBoxFor(m => m.LRForms.GstPaidByConsignor, new { @class = "form-check-input", id = "gstConsignor" })
+					<label class="form-check-label" for="gstConsignor">Consignor</label>
+				</div>
+				<div class="form-check">
+					@Html.CheckBoxFor(m => m.LRForms.GstPaidByConsignee, new { @class = "form-check-input", id = "gstConsignee" })
+					<label class="form-check-label" for="gstConsignee">Consignee</label>
+				</div>
+			</div>
+		</div>
+
+		<!-- Row 3 -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.To)</label>
+				@Html.TextBoxFor(m => m.LRForms.To, new { @class = "form-control", placeholder = "To" })
+				@Html.ValidationMessageFor(m => m.LRForms.To, "", new { @class = "text-danger" })
+			</div>
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.From)</label>
+				@Html.TextBoxFor(m => m.LRForms.From, new { @class = "form-control", placeholder = "From" })
+				@Html.ValidationMessageFor(m => m.LRForms.From, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<!-- Row 4 -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.Address1)</label>
+				@Html.TextBoxFor(m => m.LRForms.Address1, new { @class = "form-control", placeholder = "Address 1" })
+				@Html.ValidationMessageFor(m => m.LRForms.Address1, "", new { @class = "text-danger" })
+			</div>
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.Address2)</label>
+				@Html.TextBoxFor(m => m.LRForms.Address2, new { @class = "form-control", placeholder = "Address 2" })
+				@Html.ValidationMessageFor(m => m.LRForms.Address2, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<!-- Row 5 -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.City)</label>
+				@Html.TextBoxFor(m => m.LRForms.City, new { @class = "form-control", placeholder = "City" })
+				@Html.ValidationMessageFor(m => m.LRForms.City, "", new { @class = "text-danger" })
+			</div>
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.District)</label>
+				@Html.TextBoxFor(m => m.LRForms.District, new { @class = "form-control", placeholder = "District" })
+				@Html.ValidationMessageFor(m => m.LRForms.District, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<!-- Row 6 -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.State)</label>
+				@Html.DropDownListFor(m => m.LRForms.State, (IEnumerable<SelectListItem>)ViewBag.States, "Select State", new { @class = "form-select" })
+				@Html.ValidationMessageFor(m => m.LRForms.State, "", new { @class = "text-danger" })
+			</div>
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.Pincode)</label>
+				@Html.TextBoxFor(m => m.LRForms.Pincode, new { @class = "form-control", placeholder = "Pincode" })
+				@Html.ValidationMessageFor(m => m.LRForms.Pincode, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<!-- Row 7 -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.ContactNo)</label>
+				@Html.TextBoxFor(m => m.LRForms.ContactNo, new { @class = "form-control", placeholder = "Contact No" })
+				@Html.ValidationMessageFor(m => m.LRForms.ContactNo, "", new { @class = "text-danger" })
+			</div>
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.LRNo)</label>
+				@Html.TextBoxFor(m => m.LRForms.LRNo, new { @class = "form-control", placeholder = "LR No" })
+				@Html.ValidationMessageFor(m => m.LRForms.LRNo, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<!-- Row 8 -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.LRDate)</label>
+				@Html.TextBoxFor(m => m.LRForms.LRDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+				@Html.ValidationMessageFor(m => m.LRForms.LRDate, "", new { @class = "text-danger" })
+			</div>
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.InvoiceNo)</label>
+				@Html.TextBoxFor(m => m.LRForms.InvoiceNo, new { @class = "form-control", placeholder = "Invoice No" })
+				@Html.ValidationMessageFor(m => m.LRForms.InvoiceNo, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<!-- Row 9 -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.Value)</label>
+				@Html.TextBoxFor(m => m.LRForms.Value, new { @class = "form-control", placeholder = "Value" })
+				@Html.ValidationMessageFor(m => m.LRForms.Value, "", new { @class = "text-danger" })
+			</div>
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.EWayBillNo)</label>
+				@Html.TextBoxFor(m => m.LRForms.EWayBillNo, new { @class = "form-control", placeholder = "E-WayBill No" })
+				@Html.ValidationMessageFor(m => m.LRForms.EWayBillNo, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label class="col-md-2 col-form-label">Payment Type</label>
+			<div class="col-md-10 d-flex align-items-center gap-4">
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="LRForms.PaymentType" id="toPay" value="To Pay"
+						   @(Model.LRForms.PaymentType == "To Pay" ? "checked" : "") />
+					<label class="form-check-label" for="toPay">To Pay</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="LRForms.PaymentType" id="paid" value="Paid"
+						   @(Model.LRForms.PaymentType == "Paid" ? "checked" : "") />
+					<label class="form-check-label" for="paid">Paid</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="LRForms.PaymentType" id="toBeBilled" value="To be Billed"
+						   @(Model.LRForms.PaymentType == "To be Billed" ? "checked" : "") />
+					<label class="form-check-label" for="toBeBilled">To be Billed</label>
+				</div>
+			</div>
+		</div>
+		<h5>Item Details</h5>
+		<div id="itemContainer">
+			@if (Model.LRForms.Items.Count == 0)
+			{
+				<div class="row mb-2 item-row">
+					<div class="col-md-3">
+						<input type="text" name="LRForms.Items[0].Packages" class="form-control" placeholder="Packages" />
+					</div>
+					<div class="col-md-3">
+						<input type="text" name="LRForms.Items[0].Description" class="form-control" placeholder="Description" />
+					</div>
+					<div class="col-md-3">
+						<input type="text" name="LRForms.Items[0].Actual" class="form-control actual" placeholder="Actual" />
+					</div>
+					<div class="col-md-3 d-flex">
+						<input type="text" name="LRForms.Items[0].Charged" class="form-control me-2 charged" placeholder="Charged" />
+						<label class="form-check-label total" id="LRForms.Items[0].Total" for="paid">0</label>  &nbsp;| &nbsp;
+						<button type="button" class="btn btn-danger btn-sm remove-row">×</button>
+					</div>
+				</div>
+			}
+			else
+			{
+
+				@for (int i = 0; i < Model.LRForms.Items.Count; i++)
+				{
+					<div class="row mb-2 item-row">
+						<div class="col-md-3">
+							<input type="text" name="LRForms.Items[@i].Packages" value="@Model.LRForms.Items[i].Packages" class="form-control" placeholder="Packages" />
+						</div>
+						<div class="col-md-3">
+							<input type="text" name="LRForms.Items[@i].Description" value="@Model.LRForms.Items[i].Description" class="form-control" placeholder="Description" />
+						</div>
+						<div class="col-md-3">
+							<input type="text" name="LRForms.Items[@i].Actual" value="@Model.LRForms.Items[i].Actual" class="form-control actual" placeholder="Actual" />
+						</div>
+						<div class="col-md-3 d-flex">
+							<input type="text" name="LRForms.Items[@i].Charged" value="@Model.LRForms.Items[i].Charged" class="form-control me-2 charged" placeholder="Charged" />
+							<label class="form-check-label total" id="LRForms.Items[@i].Total" for="paid">@Model.LRForms.Items[i].Total</label>  &nbsp;| &nbsp;
+							<button type="button" class="btn btn-danger btn-sm remove-row">×</button>
+						</div>
+					</div>
+				}
+			}
+		</div>
+
+		<!-- Add More Button -->
+		<div class="mb-3">
+			<button type="button" id="addItem" class="btn btn-secondary btn-sm">+ Add Item</button>
+		</div>
+		<!-- Row 10 -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.Freight)</label>
+				@Html.TextBoxFor(m => m.LRForms.Freight, new { @class = "form-control", placeholder = "Freight" })
+				@Html.ValidationMessageFor(m => m.LRForms.Freight, "", new { @class = "text-danger" })
+			</div>
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.Charges)</label>
+				@Html.TextBoxFor(m => m.LRForms.Charges, new { @class = "form-control", placeholder = "Charges" })
+				@Html.ValidationMessageFor(m => m.LRForms.Charges, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<!-- Row 11 -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.StCh)</label>
+				@Html.TextBoxFor(m => m.LRForms.StCh, new { @class = "form-control", placeholder = "St Ch." })
+				@Html.ValidationMessageFor(m => m.LRForms.StCh, "", new { @class = "text-danger" })
+			</div>
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.GST)</label>
+				@Html.TextBoxFor(m => m.LRForms.GST, new { @class = "form-control", placeholder = "GST" })
+				@Html.ValidationMessageFor(m => m.LRForms.GST, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<!-- Row 12 -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.Other)</label>
+				@Html.TextBoxFor(m => m.LRForms.Other, new { @class = "form-control", placeholder = "Other" })
+				@Html.ValidationMessageFor(m => m.LRForms.Other, "", new { @class = "text-danger" })
+			</div>
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.LRForms.Advance)</label>
+				@Html.TextBoxFor(m => m.LRForms.Advance, new { @class = "form-control", placeholder = "Advance" })
+				@Html.ValidationMessageFor(m => m.LRForms.Advance, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<!-- Remarks (full row) -->
+		<div class="row mb-3">
+			<div class="col-md-12">
+				<label>@Html.LabelFor(m => m.LRForms.Remarks)</label>
+				@Html.TextAreaFor(m => m.LRForms.Remarks, new { @class = "form-control", placeholder = "Remarks", rows = 3 })
+				@Html.ValidationMessageFor(m => m.LRForms.Remarks, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<!-- Submit -->
+		<div class="row mb-3">
+			<div class="col-md-12 text-end">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				@if (ViewBag.Error != null)
+				{
+					<p style="color:red">@ViewBag.Error</p>
+				}
+			</div>
+		</div>
+	</div>
+	
+}
+
+@if (Model.LRForms.Id > 0)
+{
+	<hr />
+	<h3>Upload Documents</h3>
+	@using (Html.BeginForm("UploadDocument", "LRForm", FormMethod.Post, new { enctype = "multipart/form-data", @class = "d-flex align-items-end gap-3 flex-wrap" }))
+	{
+		@Html.Hidden("ownerId", Model.LRForms.Id)
+
+		<div class="d-flex align-items-center gap-2">
+			<label class="form-label mb-0" for="selectedDocumentType">Document Type:</label>
+			@Html.DropDownList("selectedDocumentType", Model.DocumentTypes, "-- Select Document Type --", new { @class = "form-select form-select-sm w-auto", id = "selectedDocumentType" })
+		</div>
+
+		<div class="d-flex align-items-center gap-2">
+			<label class="form-label mb-0" for="uploadFile">Upload File:</label>
+			<input type="file" name="uploadFile" id="uploadFile" class="form-control form-control-sm w-auto" />
+		</div>
+
+		<div>
+			<button type="submit" class="btn btn-success btn-sm">Upload</button>
+		</div>
+	}
+
+	<h4>Uploaded Documents</h4>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Document Type</th>
+				<th>File</th>
+				<th>Uploaded</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model.UploadedDocuments != null)
+			{
+				@foreach (var doc in Model.UploadedDocuments)
+				{
+					<tr>
+						<td>@doc.DocumentType</td>
+						<td><a href="@Url.Content(doc.FilePath)" target="_blank">Download</a></td>
+						<td>@doc.UploadedDate.ToString("dd/MM/yyyy")</td>
+						<td>
+							<a href="@Url.Action("DeleteDocument", "LRForm", new { id = doc.Id })" class="btn btn-danger btn-sm">Delete</a>
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+}
+
+
+@if (Model.LRForms.Id > 0)
+{
+	<hr />
+	<h3>Extra Charges</h3>
+	@using (Html.BeginForm("AddChagrges", "LRForm", FormMethod.Post, new { enctype = "multipart/form-data", @class = "d-flex align-items-end gap-3 flex-wrap" }))
+	{
+		@Html.Hidden("ownerId", Model.LRForms.Id)
+
+		<!-- Row 12 -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.ChangesType)</label>
+				@Html.TextBoxFor(m => m.ChangesType, new { @class = "form-control", placeholder = "Changes Type" })
+				@Html.ValidationMessageFor(m => m.ChangesType, "", new { @class = "text-danger" })
+			</div>
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.Amount)</label>
+				@Html.TextBoxFor(m => m.Amount, new { @class = "form-control", placeholder = "Amount" })
+				@Html.ValidationMessageFor(m => m.Amount, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="row mb-3">
+			<div class="col-md-12 text-end">
+				<button type="submit" class="btn btn-success btn-sm">Add</button>
+			</div>
+		</div>
+	}
+
+	<h4>Charges Details</h4>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Type of Changes</th>
+				<th>Amount</th>
+				<th>Date</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model.LRForms.ItemCharges != null)
+			{
+				@foreach (var doc in Model.LRForms.ItemCharges)
+				{
+					<tr>
+						<td>@doc.DocumentType</td>
+						<td>@doc.Freight</td>
+						<td>@doc.UploadedDate.ToString("dd/MM/yyyy")</td>
+						<td>
+							<a href="@Url.Action("DeleteChagrges", "LRForm", new { id = doc.Id })" class="btn btn-danger btn-sm">Delete</a>
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+}
+
+@section Scripts {
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css" />
+
+	<script>
+		$(function () {
+			$('.autocomplete').each(function () {
+				var $this = $(this);
+				var url = $this.data('url');
+				$this.autocomplete({
+					source: function (request, response) {
+						$.getJSON(url, { term: request.term }, response);
+					}
+					,
+					select: function (event, ui) {
+						debugger;
+						// Set the textbox value to the selected label
+						$this.val(ui.item.label);
+
+						// Optionally: store selected item's ID in a hidden input
+						var hiddenInputId = $this.data('controlid');
+						$("#" + hiddenInputId).val(ui.item.id);
+
+						return false; // prevent default behavior (if any)
+					}
+				});
+			});
+		});
+	</script>
+	<script>
+		let itemIndex = @Model.LRForms.Items.Count == 0 ? 1 : @Model.LRForms.Items.Count;
+
+		$('#addItem').click(function () {
+			const newRow = `
+			<div class="row mb-2 item-row">
+				<div class="col-md-3">
+					<input type="text" name="LRForms.Items[${itemIndex}].Packages" class="form-control" placeholder="Packages" />
+				</div>
+				<div class="col-md-3">
+					<input type="text" name="LRForms.Items[${itemIndex}].Description" class="form-control" placeholder="Description" />
+				</div>
+				<div class="col-md-3">
+					<input type="text" name="LRForms.Items[${itemIndex}].Actual" class="form-control actual" placeholder="Actual" />
+				</div>
+				<div class="col-md-3 d-flex">
+					<input type="text" name="LRForms.Items[${itemIndex}].Charged" class="form-control me-2 charged" placeholder="Charged" />
+					<label class="form-check-label total" id="LRForms.Items[${itemIndex}].Total" for="paid">0</label>  &nbsp;| &nbsp;
+					<button type="button" class="btn btn-danger btn-sm remove-row">×</button>
+				</div>
+			</div>`;
+
+			$('#itemContainer').append(newRow);
+			itemIndex++;
+		});
+
+		// Remove row
+		$(document).on('click', '.remove-row', function () {
+			$(this).closest('.item-row').remove();
+		});
+
+	</script>
+
+	<script>
+		function calculateRowTotal(row) {
+			
+			const charged = parseFloat(row.find('.charged').val()) || 0;
+			let actualVal = row.find('.actual').val();
+			let isNumeric = !isNaN(parseFloat(actualVal)) && isFinite(actualVal);
+			let total = 0;
+			if (isNumeric) {
+				const actual = parseFloat(actualVal) || 0;
+				total = actual * charged;
+			} else {
+				total = charged;
+			}
+			row.find('.total').text(total.toFixed(2));
+			return total;
+		}
+
+		function calculateGrandTotal() {
+			let grandTotal = 0;
+			$('.item-row').each(function () {
+				const rowTotal = calculateRowTotal($(this));
+				grandTotal += rowTotal;
+			});
+
+			$('#LRForms_Freight').val(grandTotal.toFixed(2));
+		}
+
+		$(document).ready(function () {
+			// Recalculate on any input change
+			$(document).on('input', '.actual, .charged', function () {
+				const row = $(this).closest('.item-row');
+				calculateRowTotal(row);
+				calculateGrandTotal();
+			});
+
+			// Optional: Remove row
+			$(document).on('click', '.remove-row', function () {
+				$(this).closest('.item-row').remove();
+				calculateGrandTotal();
+			});
+		});
+	</script>
+}

@@ -1,0 +1,39 @@
+@model IEnumerable<OfficeApp.DTOs.PartyDto>
+
+@{
+    ViewBag.Title = "Party List";
+}
+
+<h2>Party List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Party Name</th>
+        <th>GST No</th>
+        <th>Contact No1</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Pincode</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.PartyName</td>
+            <td>@item.GSTNo</td>
+            <td>@item.ContactNo1</td>
+            <td>@item.City</td>
+            <td>@item.State</td>
+            <td>@item.Pincode</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PartyId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PartyId })
+            </td>
+        </tr>
+    }
+</table>

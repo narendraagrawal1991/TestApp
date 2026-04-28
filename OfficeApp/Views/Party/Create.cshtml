@@ -1,0 +1,100 @@
+@model OfficeApp.DTOs.PartyDto
+@{
+    ViewBag.Title = "Create Party";
+}
+
+<h2>Create Party</h2>
+
+@using (Html.BeginForm("Create", "Party", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.PartyId)
+    <div class="form-horizontal">
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.PartyName)</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.PartyName, new { @class = "form-control", placeholder = "Party Name" })
+                @Html.ValidationMessageFor(m => m.PartyName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.GSTNo)</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.GSTNo, new { @class = "form-control", placeholder = "GST No" })
+                @Html.ValidationMessageFor(m => m.GSTNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.ContactNo1)</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.ContactNo1, new { @class = "form-control", placeholder = "Contact No 1" })
+                @Html.ValidationMessageFor(m => m.ContactNo1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.ContactNo2)</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.ContactNo2, new { @class = "form-control", placeholder = "Contact No 2" })
+                @Html.ValidationMessageFor(m => m.ContactNo2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.Address1)</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Address1, new { @class = "form-control", placeholder = "Address 1" })
+                @Html.ValidationMessageFor(m => m.Address1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.Address2)</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Address2, new { @class = "form-control", placeholder = "Address 2" })
+                @Html.ValidationMessageFor(m => m.Address2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.City)</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "City" })
+                @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.District)</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.District, new { @class = "form-control", placeholder = "District" })
+                @Html.ValidationMessageFor(m => m.District, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.State)</label>
+            <div class="col-sm-10">
+                @Html.DropDownListFor(m => m.State, (IEnumerable<SelectListItem>)ViewBag.StateList, "Select State", new { @class = "form-select" })
+                @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.Pincode)</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", placeholder = "Pincode" })
+                @Html.ValidationMessageFor(m => m.Pincode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-sm-10 offset-sm-2">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+
+    </div>
+}

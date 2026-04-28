@@ -1,0 +1,49 @@
+@{
+    var userName = ViewBag.User as string ?? Context.Session.GetString("UserName") ?? "User";
+    var initials = "";
+    if (!string.IsNullOrEmpty(userName))
+    {
+        var parts = userName.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        initials = parts.Length >= 2
+            ? $"{parts[0][0]}{parts[1][0]}".ToUpper()
+            : userName[..Math.Min(2, userName.Length)].ToUpper();
+    }
+    var pageTitle = ViewData["Title"]?.ToString() ?? "Dashboard";
+}
+
+<header class="topbar">
+    <button class="topbar-toggle" onclick="OfficeApp.toggleSidebar()" aria-label="Toggle sidebar">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <div class="topbar-title">@pageTitle</div>
+
+    <div class="topbar-search d-none d-md-block">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Search..." readonly onfocus="this.blur()" />
+    </div>
+
+    <div class="dropdown">
+        <div class="topbar-user" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="topbar-avatar">@initials</div>
+            <div class="topbar-user-info d-none d-sm-block">
+                <div class="topbar-user-name">@userName</div>
+                <div class="topbar-user-role">Administrator</div>
+            </div>
+            <i class="bi bi-chevron-down ms-1" style="font-size:.7rem; color:var(--text-muted);"></i>
+        </div>
+        <ul class="dropdown-menu dropdown-menu-end shadow-lg" style="border-radius:var(--radius); border:1px solid var(--border); margin-top:8px;">
+            <li>
+                <a class="dropdown-item py-2" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-person me-2"></i> Profile
+                </a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+                <a class="dropdown-item py-2 text-danger" asp-controller="Account" asp-action="Logout">
+                    <i class="bi bi-box-arrow-left me-2"></i> Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+</header>

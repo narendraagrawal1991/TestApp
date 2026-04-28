@@ -1,0 +1,54 @@
+@model IEnumerable<OfficeApp.DTOs.CompanyDto>
+
+@{
+    ViewData["Title"] = "Companies";
+}
+
+<h2 class="mb-4">Companies</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered table-striped align-middle">
+    <thead class="table-light">
+        <tr>
+            <th>Company Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Pincode</th>
+            <th>Contact No</th>
+            <th>Email</th>
+            <th>GST No</th>
+            <th style="width: 120px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="9" class="text-center text-muted">No companies found.</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CompanyName</td>
+                    <td>@item.Address</td>
+                    <td>@item.City</td>
+                    <td>@item.State</td>
+                    <td>@item.Pincode</td>
+                    <td>@item.ContactNo</td>
+                    <td>@item.EmailId</td>
+                    <td>@item.GSTNo</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CompanyId" class="btn btn-sm btn-warning me-1">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.CompanyId" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

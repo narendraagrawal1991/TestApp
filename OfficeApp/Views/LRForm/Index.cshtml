@@ -1,0 +1,38 @@
+﻿@model IEnumerable<OfficeApp.Models.LRForm>
+@{
+    ViewBag.Title = "LR Forms";
+}
+
+<h2>All LR Forms</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>Consignor</th>
+        <th>Consignee</th>
+        <th>Vehicle No</th>
+        <th>LR No</th>
+        <th>LR Date</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Consignor_Name</td>
+            <td>@item.Consignee_Name</td>
+            <td>@item.VehicleNo_Name</td>
+            <td>@item.LRNo</td>
+            <td>@item.LRDate.ToShortDateString()</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                <a href="http://dms.scanitsystem.in/RDLCReport/TransReport.aspx?lrid=@item.Id" target="_blank">LR Copy</a> |
+                <a href="http://dms.scanitsystem.in/RDLCReport/TransReport.aspx?id=@item.Id" target="_blank">Bill Copy</a>
+            </td>
+        </tr>
+    }
+</table>

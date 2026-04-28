@@ -1,0 +1,49 @@
+@model OfficeApp.DTOs.LoginDto
+@{
+	ViewBag.Title = "Login";
+}
+<h2>Login</h2>
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-horizontal">
+		<!-- Remarks (full row) -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.Username)</label>
+				@Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", rows = 1 })
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<label>@Html.LabelFor(m => m.Password)</label>
+				@Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password", rows = 1 })
+			</div>
+		</div>
+		<!-- Submit -->
+		<div class="row mb-3">
+			<div class="col-md-6">
+				<button type="submit" class="btn btn-primary">Login</button>
+				@if (ViewBag.Error != null)
+				{
+					<p style="color:red">@ViewBag.Error</p>
+				}
+			</div>
+		</div>
+    </div>
+}
+
+
+@* <form asp-action="Login" method="post">
+    <div>
+        <label>Username</label>
+        <input asp-for="Username" />
+    </div>
+
+    <div>
+        <label>Password</label>
+        <input asp-for="Password" type="password" />
+    </div>
+
+    <button type="submit">Login</button>
+</form> *@
+

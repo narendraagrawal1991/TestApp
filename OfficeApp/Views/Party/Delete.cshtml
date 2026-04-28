@@ -1,0 +1,22 @@
+@model OfficeApp.DTOs.PartyDto
+
+@{
+    ViewBag.Title = "Delete Party";
+}
+
+<h2>Are you sure you want to delete this?</h2>
+
+<div>
+    <h4>@Model.PartyName</h4>
+    <p>
+        <strong>GST:</strong> @Model.GSTNo<br />
+        <strong>PartyName:</strong> @Model.PartyName<br />
+    </p>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+    }
+</div>

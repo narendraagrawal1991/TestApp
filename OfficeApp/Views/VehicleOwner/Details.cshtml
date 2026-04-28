@@ -1,0 +1,37 @@
+﻿@model OfficeApp.Models.VehicleOwner
+
+<h2>Vehicle Details</h2>
+
+<table class="table">
+    <tr><td>Vehicle No:</td><td>@Model.VehicleNo</td></tr>
+    <tr><td>Owner Name:</td><td>@Model.OwnerName</td></tr>
+    <tr><td>Owner Mobile:</td><td>@Model.OwnerMobileNo1, @Model.OwnerMobileNo2</td></tr>
+    <tr><td>Driver Name:</td><td>@Model.DriverName</td></tr>
+    <tr><td>Driver Mobile:</td><td>@Model.DriverMobileNo1, @Model.DriverMobileNo2</td></tr>
+    <tr><td>RC No:</td><td>@Model.RCNo</td></tr>
+    <tr><td>Pan Card No:</td><td>@Model.PanCardNo</td></tr>
+    <tr><td>Aadhar Card No:</td><td>@Model.AadharCardNo</td></tr>
+</table>
+
+<h3>Uploaded Documents</h3>
+<table class="table">
+    <thead>
+        <tr><th>Type</th><th>File</th><th>Date</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var doc in Model.Documents)
+        {
+            <tr>
+                <td>@doc.DocumentType</td>
+                <td><a href="@Url.Content(doc.FilePath)" target="_blank">Download</a></td>
+                <td>@doc.UploadedDate.ToString("dd/MM/yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

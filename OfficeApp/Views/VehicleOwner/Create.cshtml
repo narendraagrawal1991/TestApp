@@ -1,0 +1,139 @@
+﻿@model OfficeApp.Models.VehicleOwnerViewModel
+
+@using (Html.BeginForm("Create", "VehicleOwner", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Owner.Id)
+    <h3 class="mb-4">Vehicle Entry</h3>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.Owner.VehicleNo)</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Owner.VehicleNo, new { @class = "form-control", placeholder = "Vehicle No" })
+            @Html.ValidationMessageFor(m => m.Owner.VehicleNo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.Owner.OwnerName)</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Owner.OwnerName, new { @class = "form-control", placeholder = "Owner Name" })
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.Owner.OwnerMobileNo1)</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Owner.OwnerMobileNo1, new { @class = "form-control", placeholder = "Owner Mobile No1" })
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.Owner.OwnerMobileNo2)</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Owner.OwnerMobileNo2, new { @class = "form-control", placeholder = "Owner Mobile No2" })
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.Owner.DriverName)</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Owner.DriverName, new { @class = "form-control", placeholder = "Driver Name" })
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.Owner.DriverMobileNo1)</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Owner.DriverMobileNo1, new { @class = "form-control", placeholder = "Driver Mobile No1" })
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.Owner.DriverMobileNo2)</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Owner.DriverMobileNo2, new { @class = "form-control", placeholder = "Driver Mobile No2" })
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.Owner.RCNo)</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Owner.RCNo, new { @class = "form-control", placeholder = "RC No" })
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.Owner.PanCardNo)</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Owner.PanCardNo, new { @class = "form-control", placeholder = "PanCard No" })
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <label class="col-sm-2 col-form-label">@Html.LabelFor(m => m.Owner.AadharCardNo)</label>
+        <div class="col-sm-10">
+            @Html.TextBoxFor(m => m.Owner.AadharCardNo, new { @class = "form-control", placeholder = "Aadhar Card No" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10 offset-sm-2">
+            <button type="submit" class="btn btn-primary">Save Vehicle</button>
+        </div>
+    </div>
+}
+
+
+@if (Model.Owner.Id > 0)
+{
+    <hr />
+    <h3>Upload Documents</h3>
+    @using (Html.BeginForm("UploadDocument", "VehicleOwner", FormMethod.Post, new { enctype = "multipart/form-data", @class = "d-flex align-items-end gap-3 flex-wrap" }))
+    {
+        @Html.Hidden("ownerId", Model.Owner.Id)
+
+        <div class="d-flex align-items-center gap-2">
+            <label class="form-label mb-0" for="selectedDocumentType">Document Type:</label>
+            @Html.DropDownList("selectedDocumentType", Model.DocumentTypes, "-- Select Document Type --", new { @class = "form-select form-select-sm w-auto", id = "selectedDocumentType" })
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+            <label class="form-label mb-0" for="uploadFile">Upload File:</label>
+            <input type="file" name="uploadFile" id="uploadFile" class="form-control form-control-sm w-auto" />
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-success btn-sm">Upload</button>
+        </div>
+    }
+
+    <h4>Uploaded Documents</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Document Type</th>
+                <th>File</th>
+                <th>Uploaded</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model.UploadedDocuments !=null){
+                @foreach (var doc in Model.UploadedDocuments)
+                {
+                    <tr>
+                        <td>@doc.DocumentType</td>
+                        <td><a href="@Url.Content(doc.FilePath)" target="_blank">Download</a></td>
+                        <td>@doc.UploadedDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            <a href="@Url.Action("DeleteDocument", "VehicleOwner", new { id = doc.Id })" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

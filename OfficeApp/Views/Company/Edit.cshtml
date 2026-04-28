@@ -1,0 +1,81 @@
+@model OfficeApp.DTOs.CompanyDto
+@{
+    ViewBag.Title = "Edit Company";
+}
+<h2>Edit Company</h2>
+@using (Html.BeginForm("Edit", "Company", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.CompanyId)
+
+    <div class="form-horizontal">
+        <!-- Row 1: Company Name -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>@Html.LabelFor(m => m.CompanyName)</label>
+                @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control", placeholder = "Company Name" })
+                @Html.ValidationMessageFor(m => m.CompanyName, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                <label>@Html.LabelFor(m => m.GSTNo)</label>
+                @Html.TextBoxFor(m => m.GSTNo, new { @class = "form-control", placeholder = "GST No" })
+                @Html.ValidationMessageFor(m => m.GSTNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Row 2: Address & City -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>@Html.LabelFor(m => m.Address)</label>
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Address" })
+                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                <label>@Html.LabelFor(m => m.City)</label>
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "City" })
+                @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Row 3: State & Pincode -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>@Html.LabelFor(m => m.State)</label>
+                @Html.TextBoxFor(m => m.State, new { @class = "form-control", placeholder = "State" })
+                @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                <label>@Html.LabelFor(m => m.Pincode)</label>
+                @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", placeholder = "Pincode" })
+                @Html.ValidationMessageFor(m => m.Pincode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Row 4: Contact No & Email -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>@Html.LabelFor(m => m.ContactNo)</label>
+                @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control", placeholder = "Contact No" })
+                @Html.ValidationMessageFor(m => m.ContactNo, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                <label>@Html.LabelFor(m => m.EmailId)</label>
+                @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", placeholder = "Email" })
+                @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="row mb-3">
+            <div class="col-md-12 text-end">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a href="@Url.Action("Index", "Company")" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+}
+@* 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+ *@
